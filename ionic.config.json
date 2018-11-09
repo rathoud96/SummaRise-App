@@ -1,0 +1,7 @@
+{
+  "name": "summarise",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
