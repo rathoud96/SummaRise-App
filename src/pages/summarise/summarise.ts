@@ -14,8 +14,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'summarise.html',
 })
 export class SummarisePage {
-
+  data:any
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.data = this.navParams.get('data');
   }
 
   ionViewDidLoad() {

@@ -7,12 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>summarise</ion-title>
+    <ion-title>Summarise</ion-title>
   </ion-navbar>
 
 </ion-header>
-
-
-<ion-content padding>
+<ion-content no-padding>
+  <ion-card style="padding:10px 10px 10px 10px;">
+    <h1>{{data.title}}</h1>
+    <h2> Reduced: {{data.reduced}}</h2>
+    <h3>{{data.summary.substring(14)}}</h3>
+  </ion-card>
 
 </ion-content>

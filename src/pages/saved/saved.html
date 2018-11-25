@@ -1,18 +1,65 @@
-<!--
-  Generated template for the SavedPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>saved</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Saved
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
-
-
-<ion-content padding>
-
+<ion-content no-padding id="page6">
+    <div *ngFor = "let summary of summaryList" >
+        <ion-card no-padding >
+            <ion-list *ngIf="summary" id="saved-card21">
+              <ion-item-sliding>
+                  <ion-item style="height:12vh" (click)="showData(summary)">
+                      <ion-thumbnail style="padding-top:2.2vh;padding-right:0" item-start >
+                          <img style="height:50px; width:50px"  src="../../assets/icon/checklist.png"> 
+                      </ion-thumbnail>
+                    <h2>{{summary.title}}</h2>
+                    <h3>{{summary.summary.substring(0,30)}}</h3>
+                  </ion-item>
+                  <ion-item-options side="right">
+                      
+                      <button expandable (click)="delete(summary)" ion-button color="danger">
+                          <ion-icon name="ios-trash"></ion-icon>
+                          
+                        </button>
+                  </ion-item-options>  
+                </ion-item-sliding>  
+                </ion-list>
+        </ion-card>
+    </div>
 </ion-content>
+
+
+
+<!-- <div>
+    <ion-list>
+        <ion-item-sliding>
+          <ion-item>
+            <ion-avatar item-start>
+              <img src="img/slimer.png">
+            </ion-avatar>
+            <h2>Slimer</h2>
+          </ion-item>
+          <ion-item-options side="left">
+            <button ion-button color="primary">
+              <ion-icon name="text"></ion-icon>
+              Text
+            </button>
+            <button ion-button color="secondary">
+              <ion-icon name="call"></ion-icon>
+              Call
+            </button>
+          </ion-item-options>
+          <ion-item-options side="right">
+            <button ion-button color="primary">
+              <ion-icon name="mail"></ion-icon>
+              Email
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+</div> -->

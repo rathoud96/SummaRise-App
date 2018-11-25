@@ -1,18 +1,49 @@
-<!--
-  Generated template for the SignupPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>signup</ion-title>
-  </ion-navbar>
-
+  <!-- <ion-navbar color="primary"> -->
+    <!-- <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button> -->
+    <!-- <ion-title style="text-align: center;">
+      Signup
+    </ion-title>
+  </ion-navbar> -->
 </ion-header>
+<ion-content padding id="page11">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-list no-lines>
+      <ion-thumbnail item-start style="padding-top: 2.0em;padding-bottom: .2em;">
+        <img src="assets/icon/avatar.png" style="max-width: 30%;margin: 0 auto;">
+      </ion-thumbnail>
+      <ion-item style="background-color: transparent;border-bottom-color: transparent;color: black;">
+        <!-- <ion-label color="dark" required>Name</ion-label> -->
+        <ion-input name="name" placeholder="Name" required ngModel type="text" style="block-size: 1.2em;"></ion-input>
+      </ion-item>
 
-
-<ion-content padding>
-
-</ion-content>
+      <ion-item style="background-color: transparent;border-bottom-color: transparent;color: black;">
+        <!-- <ion-label color="dark" required>Email</ion-label> -->
+        <ion-input name="email" placeholder="Email" required ngModel type="email" style="padding-top: 4%;"></ion-input>
+      </ion-item>
+  
+      <ion-item style="background-color: transparent;border-bottom-color: transparent;color: black;">
+        <!-- <ion-label placeholder="Password" color="dark">Password </ion-label> -->
+        <ion-input name="password" placeholder="Password" type="password" required ngModel [minlength]="6" style="padding-top: 4%;"></ion-input>
+      </ion-item>
+    </ion-list>
+    <!-- <br/> -->
+    <ion-note center style="color:white; text-align: center;font-weight: 650;">
+      <p (click)="navLogin()">Already have an account? Sign In Now!</p>
+      <h5>OR </h5>
+    </ion-note>
+    <button ion-button color="secondary" type="submit" full [disabled]="!f.valid"
+     style="border-radius: 0.6em;">Sign Up</button>
+    <br>
+  
+  </form>
+  <!-- Bootm -->
+  <button ion-button icon-left center color="danger" (click)="onGoogleSignIn()" full
+   style="border-radius: 0.6em;">
+    <ion-icon name="logo-googleplus" right></ion-icon>
+    <div> Sign up with Google</div>
+  </button>
+  
+  </ion-content>

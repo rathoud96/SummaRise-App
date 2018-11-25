@@ -1,0 +1,39 @@
+<!--
+  Generated template for the SettingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Settings</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <ion-list radio-group>
+        <ion-list-header>
+          Theme
+        </ion-list-header>
+        <ion-item  >
+            <ion-label>Light</ion-label>
+            <ion-radio (click)="lightTheme()" checked="true" value="light"></ion-radio>
+          </ion-item>
+        <ion-item >
+            <ion-label>Dark</ion-label>
+            <ion-radio (click)="darkTheme()" value="dark"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-list>
+        <ion-item>
+          <ion-icon item-left name="ios-log-out"></ion-icon>
+          Logout
+        </ion-item>
+      </ion-list>
+
+</ion-content>
+<!-- <button ion-button light >Light</button>
+  <button ion-button dark  >Dark</button> -->

@@ -1,18 +1,102 @@
-<!--
-  Generated template for the SummaryPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>summary</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Summary
+    </ion-title>
   </ion-navbar>
-
+  <ion-toolbar  no-border-top>
+      <ion-segment  [(ngModel)]="type">
+        <ion-segment-button style="border:none"  id="url_form"  value="url">
+          URL
+        </ion-segment-button>
+        <ion-segment-button style="border:none" id="text_form" value="form">
+          TEXT
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
+<ion-content padding  class="content">
+      <div  [ngSwitch]="type">
 
-<ion-content padding>
+          <form #g="ngForm" (ngSubmit)="onSubmitUrl(g)" *ngSwitchCase="'url'">
+              
+              <ion-card >
+                  <ion-input required=""    ngModel   style=" margin-bottom: 10px"  type="text" name="http" placeholder="Enter the url"></ion-input>
+              </ion-card>
 
+              <div padding>
+                  <ion-segment [(ngModel)]="ext_abst" name="seg_summ">
+                    <ion-segment-button value="ext"  [style.background]="bck_color_e" (click)="change_color_e()" style="border:none;border-radius: 0.2em;color: #424242" value="extractive">
+                      Extractive
+                    </ion-segment-button>
+                    <ion-segment-button value="abst"  [style.background]="bck_color_a" (click)="change_color_a()" style="border:none;border-radius: 0.2em;color: #424242" value="abstractive">
+                      Abstractive
+                    </ion-segment-button>
+                  </ion-segment>
+                </div>
+
+                <!-- <div [ngSwitch]="ext_abst">
+                  <div *ngSwitchCase="'ext'"> -->
+                  <ion-label style="margin-left:1em;color:#424242">Summary Percentage</ion-label>
+                  <ion-item no-padding style="background:transparent">
+                      <ion-range style="padding-top:20px" min="10" max="90" step="1" pin="true" [(ngModel)]="range_value" name="range" (ngModelChange)="value_change($event)" >
+                        <ion-icon id="slider_icon" style="font-weight:bold" range-left small name="remove"></ion-icon>
+                        <ion-icon id="slider_icon" range-right name="add"></ion-icon>
+                      </ion-range>
+                    </ion-item>
+                <!-- </div> -->
+                <!-- <div *ngSwitchCase="'abst'">
+                  <ion-label>fggfddgh</ion-label>
+                </div>
+              </div>   -->
+                <ion-item style="border-bottom:none; background:transparent">
+                  <ion-label style="color: #424242">Save For Later</ion-label>
+                  <ion-checkbox color="dark" checked="true" style="border-bottom:none"></ion-checkbox>
+                </ion-item>
+                
+                <button ion-button color="secondary" type="submit" full
+                  style="border-radius: 0.6em;">SummaRise</button> 
+            </form>    
+        
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngSwitchCase="'form'">
+        
+              <ion-card style="background:transparent">
+                  <ion-textarea   required="" rows="15" ngModel style="height:25vh; margin-bottom: 10px" type="text" name="summary" placeholder="Enter the text you want to Summarise...!">
+                  </ion-textarea>
+              </ion-card>
+
+              <div padding>
+                  <ion-segment>
+                    <ion-segment-button  [style.background]="bck_color_e" (click)="change_color_e()" style="border:none;border-radius: 0.2em;color: #424242" value="extractive">
+                      Extractive
+                    </ion-segment-button>
+                    <ion-segment-button  [style.background]="bck_color_a" (click)="change_color_a()" style="border:none;border-radius: 0.2em;color: #424242" value="abstractive">
+                      Abstractive
+                    </ion-segment-button>
+                  </ion-segment>
+                </div>
+  
+              <ion-label style="margin-left:1em;color:#424242">Summary Percentage</ion-label>
+              <ion-item style="background:transparent">
+                  <ion-range style="padding-top:20px" min="10" max="90" step="1" pin="true" [(ngModel)]="range_value" name="range" (ngModelChange)="value_change($event)" >
+                    <ion-icon id="slider_icon" style="font-weight:bold" range-left small name="remove"></ion-icon>
+                    <ion-icon id="slider_icon" range-right name="add"></ion-icon>
+                  </ion-range>
+              </ion-item>
+            
+                <ion-item style="border-bottom:none; background:transparent">
+                  <ion-label style="color: #424242">Save For Later</ion-label>
+                  <ion-checkbox color="dark" checked="true" style="border-bottom:none"></ion-checkbox>
+                </ion-item>
+                
+                <button ion-button color="secondary" type="submit" full [disabled]="!f.valid"
+                  style="border-radius: 0.6em;">SummaRise</button> 
+            </form>         
+      </div>
+       
+  
 </ion-content>

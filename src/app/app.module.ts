@@ -9,15 +9,25 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { SavedPage } from '../pages/saved/saved';
 import { IonicStorageModule } from '@ionic/storage';
+import aylien_textapi from '../../node_modules/aylien_textapi';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 //providers
+import { AuthService } from '../services/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import {GooglePlus } from '@ionic-native/google-plus';
+import { CustomFormsModule } from 'ngx-custom-validators';
+import { HttpModule } from '@angular/http';
 //import {AngularFireModule } from 'angularfire2';
 import { SummaryPage } from '../pages/summary/summary';
+import { SummarisePage } from '../pages/summarise/summarise';
+import { SettingPage } from '../pages/setting/setting';
+import { SettingsProvider } from '../providers/settings/settings';
+import { PopoverPage } from '../pages/popover/popover';
+import { HTTP } from '@ionic-native/http';
 
 
 @NgModule({
@@ -28,13 +38,18 @@ import { SummaryPage } from '../pages/summary/summary';
     SummaryPage,
     LoginPage,
     SignupPage,
-    SavedPage
+    SavedPage,
+    SummarisePage,
+    SettingPage,
+    PopoverPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    CustomFormsModule,
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -44,13 +59,19 @@ import { SummaryPage } from '../pages/summary/summary';
     LoginPage,
     SignupPage,
     SavedPage,
-    SummaryPage
+    SummaryPage,
+    SummarisePage,
+    SettingPage,
+    PopoverPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GooglePlus
+    GooglePlus,
+    AuthService,
+    SettingsProvider,
+    HTTP
   ]
 })
 export class AppModule {}

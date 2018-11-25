@@ -1,0 +1,59 @@
+.dark-theme {
+   
+  ion-content {
+    background-color:#121212 ;
+  }
+   
+    .toolbar-title {
+      color: white;
+    }
+
+    ion-card{
+      h1,h2,h3{
+        color: white;
+      }
+    }    
+    .list-md ion-item-sliding{
+      background: transparent;
+    }
+    
+    ion-item{
+      background: transparent;
+    }
+
+    .input-wrapper{
+      h2{
+        color: white;
+      }
+      h3{
+        color: whitesmoke;
+      }
+    }
+    #slider_icon{
+      color: whitesmoke
+    }
+    .header .toolbar-background {
+      background-color:#232323;
+    }
+    .ion-input{
+      background:transparent;
+    }
+    
+    .item-cover{
+      background: transparent;
+    }
+    .item-md.item-block .item-inner {
+      padding-right: 8px;
+      border-bottom: 0px;
+  }
+  #text_form,#url_form{
+    color:white;
+  }
+  ion-card.card.card-md{
+    background: transparent;
+    color:white
+  }
+  
+  
+  } 
+  

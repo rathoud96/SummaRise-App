@@ -1,25 +1,49 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController } from 'ionic-angular';
+import firebase from 'firebase';
+import { Storage } from '@ionic/storage';
+import { SummarisePage } from '../summarise/summarise';
 
-/**
- * Generated class for the SavedPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-saved',
   templateUrl: 'saved.html',
 })
 export class SavedPage {
+  summaryList:Array<any>
+  userId:any
+  summarised:any
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private storage:Storage) {
+      // storage.get('userID').then(data=>{
+      //   this.userId = data;
+      //   console.log(this.userId);
+      this.viewSummary();
+          
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SavedPage');
+  viewSummary(){
+    firebase.auth().onAuthStateChanged(user=>{
+      this.userId = user.uid;
+      firebase.database().ref('users/'+this.userId+'/summary').once('value',data=>{
+        console.log(Object.keys(data.val()));
+        this.summaryList = data.val();
+        this.summaryList.forEach(data=>{
+          console.log(data)
+        });
+    });
+    });
   }
+  delete(summary){
+    console.log(summary)
+  }
+  showData(summarised){
+    this.navCtrl.push(SummarisePage,{
+      data:summarised
+    });
+  }
+
+  
 
 }

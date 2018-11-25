@@ -8,8 +8,12 @@ import { Storage } from '@ionic/storage';
 
 import { LoginPage } from '../pages/login/login';
 import { SummaryPage} from '../pages/summary/summary'
+
 import firebase from 'firebase';
 import { AuthService } from '../services/auth';
+import { SettingPage } from '../pages/setting/setting';
+import { SettingsProvider } from './../providers/settings/settings';
+import aylien_textapi from '../../node_modules/aylien_textapi';
 
 
 
@@ -19,6 +23,7 @@ import { AuthService } from '../services/auth';
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
     rootPage:any = LoginPage;
+    selectedTheme: String;
     userName: string;
     
 
@@ -26,7 +31,28 @@ export class MyApp {
         statusBar: StatusBar,
         splashScreen: SplashScreen,
         private authservice:AuthService,
-        private storage: Storage) {
+        private storage: Storage,
+        private settings:SettingsProvider) {
+
+          this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
+          //username from local storage
+          // this.storage.get('UserInfo').then(data=>{
+          //   this.userName = data.userName;
+          //   console.log(this.userName);
+          // });
+
+          // var textapi = new aylien_textapi({
+          //   application_id: "3a180bf7",
+          //   application_key: "1bacd00d5e87726291809f02fa4fd0b0"
+          // });
+
+          // textapi.sentiment({
+          //   'text': 'John is a very good football player!'
+          // }, (error, response) => {
+          //   if (error === null) {
+          //     console.log(response);
+          //   }
+          // });
 
     //firebase
     firebase.initializeApp ({
@@ -41,13 +67,16 @@ export class MyApp {
     firebase.auth().onAuthStateChanged(user => {
       
       if (user) {
-        this.userName = user.uid;
-        console.log(user);
+        //this.userName = user.uid;
+        // console.log(user);
+        firebase.database().ref('users/'+user.uid+'/userName').once('value',data=>{
+            this.userName = data.val();
+        });
         this.navCtrl.setRoot(SummaryPage);
       }
     });
         
-    this.getUserName()
+    //this.getUserName()
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -56,12 +85,10 @@ export class MyApp {
     });
   }
 
-  getUserName(){
-    this.storage.get('userData').then(data=>{
-      this.userName = data.name;
-      console.log(this.userName + " "+ data);
-    })
-  }
+  // getUserName(){
+
+  // // console.log(this.userName);    
+  // }
   logout(){
     firebase.auth().signOut();
     this.navCtrl.setRoot(LoginPage);
@@ -72,7 +99,11 @@ export class MyApp {
     this.navCtrl.setRoot(SummaryPage);
   }goToSaved(params){
     if (!params) params = {};
-    this.navCtrl.setRoot(SavedPage);
+    this.navCtrl.push(SavedPage);
+  }
+  goToSetting(params){
+    if (!params) params = {};
+    this.navCtrl.push(SettingPage);
   }
   
 }
