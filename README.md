@@ -17,7 +17,7 @@ Ionic App for SummaRise - Text Summarization (Abstractive & Extractive)
 * Typescript
 
 ### Screenshots
-![alt img](https://i.imgur.com/0RUJFX9.png)<br>
+![alt img](https://i.imgur.com/0RUJFX9.png  =100x20)<br>
 ![alt img](https://i.imgur.com/7DTkLhn.png)<br>
 ![alt img](https://i.imgur.com/eNto0Oi.png)<br>
 ![alt img](https://i.imgur.com/cBxCzog.png)<br>
