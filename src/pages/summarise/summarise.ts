@@ -15,12 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class SummarisePage {
   data:any
+  details:boolean
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.data = this.navParams.get('data');
+    console.log(this.data);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SummarisePage');
   }
-
+  showDetails(){
+    this.details = !this.details
+  }
 }

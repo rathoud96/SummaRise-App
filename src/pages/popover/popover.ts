@@ -15,12 +15,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class PopoverPage {
   data:any
+  details:boolean
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.data = this.navParams.get('data');
+    this.details = false
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PopoverPage');
   }
-
+  showDetails(){
+    this.details = !this.details
+  }
 }

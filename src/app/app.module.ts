@@ -25,6 +25,7 @@ import { HttpModule } from '@angular/http';
 import { SummaryPage } from '../pages/summary/summary';
 import { SummarisePage } from '../pages/summarise/summarise';
 import { SettingPage } from '../pages/setting/setting';
+import { FeedbackPage } from "../pages/feedback/feedback";
 import { SettingsProvider } from '../providers/settings/settings';
 import { PopoverPage } from '../pages/popover/popover';
 import { HTTP } from '@ionic-native/http';
@@ -41,7 +42,8 @@ import { HTTP } from '@ionic-native/http';
     SavedPage,
     SummarisePage,
     SettingPage,
-    PopoverPage
+    PopoverPage,
+    FeedbackPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,8 @@ import { HTTP } from '@ionic-native/http';
     SummaryPage,
     SummarisePage,
     SettingPage,
-    PopoverPage
+    PopoverPage,
+    FeedbackPage
   ],
   providers: [
     StatusBar,

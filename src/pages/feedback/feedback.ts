@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NgForm} from '@angular/forms';
+import firebase from 'firebase';
 
 /**
  * Generated class for the FeedbackPage page.
@@ -21,5 +23,8 @@ export class FeedbackPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad FeedbackPage');
   }
-
+  onSubmit(form:NgForm){
+    
+    firebase.database().ref('feedback/').push(form.value.feedback);
+  }
 }

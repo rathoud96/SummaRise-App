@@ -7,12 +7,29 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>feedback</ion-title>
+    <ion-title>Feedback</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  
+  <form #feedback="ngForm" (ngSubmit)="onSubmit(feedback)">
+    <ion-card style="background:transparent">
+      <ion-textarea   required="" rows="15" ngModel style="height:25vh; margin-bottom: 10px" type="text" name="feedback" placeholder="Please enter any Feedback / Concern / Suggessions">
+      </ion-textarea>
+  </ion-card>
+  
+  <ion-label style="text-align: center;">Your feedback is valuable for us </ion-label><br><br>
+  <button ion-button color="secondary" type="submit" full 
+                  style="border-radius: 0.6em;">Submit</button>
+  </form>
+  <ion-footer style="background:lightgray">
+    <div style="text-align:center">
+      <ion-label >You can also contact us at: </ion-label>
+      <ion-label >Email: summarise@gmail.com</ion-label>
+      <ion-label >Phone: +91 98243 24342</ion-label>
+    </div>
+  </ion-footer>
 </ion-content>

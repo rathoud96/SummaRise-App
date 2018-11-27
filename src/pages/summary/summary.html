@@ -25,37 +25,46 @@
           <form #g="ngForm" (ngSubmit)="onSubmitUrl(g)" *ngSwitchCase="'url'">
               
               <ion-card >
-                  <ion-input required=""    ngModel   style=" margin-bottom: 10px"  type="text" name="http" placeholder="Enter the url"></ion-input>
+                  <ion-item>
+                    <ion-input  ngModel  style=" margin-bottom: 10px"  type="text" name="http" placeholder="Enter the url"></ion-input>
+                  </ion-item>
               </ion-card>
 
-              <div padding>
+              <!-- <div padding>
                   <ion-segment [(ngModel)]="ext_abst" name="seg_summ">
-                    <ion-segment-button value="ext"  [style.background]="bck_color_e" (click)="change_color_e()" style="border:none;border-radius: 0.2em;color: #424242" value="extractive">
+                    <ion-segment-button  value="ext" (ionChange)="func($event)"  [style.background]="bck_color_e" (click)="change_color_e()" style="border:none;border-radius: 0.2em;color: #424242" value="extractive">
                       Extractive
                     </ion-segment-button>
                     <ion-segment-button value="abst"  [style.background]="bck_color_a" (click)="change_color_a()" style="border:none;border-radius: 0.2em;color: #424242" value="abstractive">
                       Abstractive
                     </ion-segment-button>
                   </ion-segment>
-                </div>
-
-                <!-- <div [ngSwitch]="ext_abst">
-                  <div *ngSwitchCase="'ext'"> -->
-                  <ion-label style="margin-left:1em;color:#424242">Summary Percentage</ion-label>
-                  <ion-item no-padding style="background:transparent">
+                </div> -->
+                <ion-list radio-group>
+                <ion-item >
+                    <ion-label>Extractive</ion-label>
+                    <ion-radio  checked (ionSelect)="funct($event)" value="ext"></ion-radio>
+                  </ion-item>
+                
+                  <ion-item>
+                    <ion-label>Abstractive</ion-label>
+                    <ion-radio (ionSelect)="funct($event)" value="abst"></ion-radio>
+                  </ion-item>
+                </ion-list>
+                
+                <div *ngIf="summary_size_type">
+                  <ion-label style="margin-left:1em;">Summary Percentage</ion-label>
+                  <ion-item  no-padding style="background:transparent">
                       <ion-range style="padding-top:20px" min="10" max="90" step="1" pin="true" [(ngModel)]="range_value" name="range" (ngModelChange)="value_change($event)" >
                         <ion-icon id="slider_icon" style="font-weight:bold" range-left small name="remove"></ion-icon>
                         <ion-icon id="slider_icon" range-right name="add"></ion-icon>
                       </ion-range>
                     </ion-item>
-                <!-- </div> -->
-                <!-- <div *ngSwitchCase="'abst'">
-                  <ion-label>fggfddgh</ion-label>
                 </div>
-              </div>   -->
-                <ion-item style="border-bottom:none; background:transparent">
-                  <ion-label style="color: #424242">Save For Later</ion-label>
-                  <ion-checkbox color="dark" checked="true" style="border-bottom:none"></ion-checkbox>
+                
+                <ion-item style="border-bottom:none;">       
+                  <ion-label >Save For Later</ion-label>
+                  <ion-checkbox color="dark" checked="false" (ionChange)="(dataChange($event))" style="border-bottom:none"></ion-checkbox>
                 </ion-item>
                 
                 <button ion-button color="secondary" type="submit" full
@@ -63,35 +72,56 @@
             </form>    
         
           <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngSwitchCase="'form'">
-        
               <ion-card style="background:transparent">
-                  <ion-textarea   required="" rows="15" ngModel style="height:25vh; margin-bottom: 10px" type="text" name="summary" placeholder="Enter the text you want to Summarise...!">
-                  </ion-textarea>
+                  <ion-item>
+                    <ion-input required  ngModel style="margin-bottom: 10px" type="text" name="summary_title" placeholder="Title">
+                    </ion-input>
+                  </ion-item>
+              </ion-card>
+              <ion-card style="background:transparent">
+                  <ion-item>
+                    <ion-textarea rows="15" ngModel style="height:25vh; margin-bottom: 10px" type="text" name="summary_text" placeholder="Enter the text you want to Summarise...!">
+                    </ion-textarea>
+                  </ion-item>
               </ion-card>
 
-              <div padding>
+              <!-- <div padding>
                   <ion-segment>
-                    <ion-segment-button  [style.background]="bck_color_e" (click)="change_color_e()" style="border:none;border-radius: 0.2em;color: #424242" value="extractive">
+                    <ion-segment-button  [(style.background)]="bck_color_e" (click)="change_color_e()" style="border:none;border-radius: 0.2em;color: #424242" value="extractive">
                       Extractive
                     </ion-segment-button>
-                    <ion-segment-button  [style.background]="bck_color_a" (click)="change_color_a()" style="border:none;border-radius: 0.2em;color: #424242" value="abstractive">
+                    <ion-segment-button  [(style.background)]="bck_color_a" (click)="change_color_a()" style="border:none;border-radius: 0.2em;color: #424242" value="abstractive">
                       Abstractive
                     </ion-segment-button>
                   </ion-segment>
-                </div>
-  
-              <ion-label style="margin-left:1em;color:#424242">Summary Percentage</ion-label>
+                </div> -->
+
+                <ion-list radio-group>
+                    <ion-item >
+                        <ion-label>Extractive</ion-label>
+                        <ion-radio  checked (ionSelect)="funct($event)" value="ext"></ion-radio>
+                      </ion-item>
+                    
+                      <ion-item>
+                        <ion-label>Abstractive</ion-label>
+                        <ion-radio (ionSelect)="funct($event)" value="abst"></ion-radio>
+                      </ion-item>
+                    </ion-list>
+
+              <div *ngIf="summary_size_type">
+              <ion-label style="margin-left:1em;">Summary Percentage</ion-label>
               <ion-item style="background:transparent">
                   <ion-range style="padding-top:20px" min="10" max="90" step="1" pin="true" [(ngModel)]="range_value" name="range" (ngModelChange)="value_change($event)" >
                     <ion-icon id="slider_icon" style="font-weight:bold" range-left small name="remove"></ion-icon>
                     <ion-icon id="slider_icon" range-right name="add"></ion-icon>
                   </ion-range>
               </ion-item>
-            
-                <ion-item style="border-bottom:none; background:transparent">
-                  <ion-label style="color: #424242">Save For Later</ion-label>
-                  <ion-checkbox color="dark" checked="true" style="border-bottom:none"></ion-checkbox>
-                </ion-item>
+            </div>
+
+              <ion-item style="border-bottom:none;">
+                <ion-label>Save For Later</ion-label>
+                <ion-checkbox color="dark" checked="false" (ionChange)="(dataChange($event))"  style="border-bottom:none"></ion-checkbox>
+              </ion-item>
                 
                 <button ion-button color="secondary" type="submit" full [disabled]="!f.valid"
                   style="border-radius: 0.6em;">SummaRise</button> 

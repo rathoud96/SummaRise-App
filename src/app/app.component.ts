@@ -13,7 +13,7 @@ import firebase from 'firebase';
 import { AuthService } from '../services/auth';
 import { SettingPage } from '../pages/setting/setting';
 import { SettingsProvider } from './../providers/settings/settings';
-import aylien_textapi from '../../node_modules/aylien_textapi';
+import { FeedbackPage } from '../pages/feedback/feedback';
 
 
 
@@ -34,26 +34,8 @@ export class MyApp {
         private storage: Storage,
         private settings:SettingsProvider) {
 
-          this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
-          //username from local storage
-          // this.storage.get('UserInfo').then(data=>{
-          //   this.userName = data.userName;
-          //   console.log(this.userName);
-          // });
-
-          // var textapi = new aylien_textapi({
-          //   application_id: "3a180bf7",
-          //   application_key: "1bacd00d5e87726291809f02fa4fd0b0"
-          // });
-
-          // textapi.sentiment({
-          //   'text': 'John is a very good football player!'
-          // }, (error, response) => {
-          //   if (error === null) {
-          //     console.log(response);
-          //   }
-          // });
-
+        this.settings.getActiveTheme().subscribe(val => this.selectedTheme = val);
+          
     //firebase
     firebase.initializeApp ({
       apiKey: "AIzaSyDsuMWTuRN_70yGCjXIczUv6Un4U3dLMj4",
@@ -104,6 +86,10 @@ export class MyApp {
   goToSetting(params){
     if (!params) params = {};
     this.navCtrl.push(SettingPage);
+  }
+  goToContact(params){
+    if (!params) params = {};
+    this.navCtrl.push(FeedbackPage);
   }
   
 }

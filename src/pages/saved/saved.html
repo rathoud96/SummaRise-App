@@ -17,8 +17,8 @@
                       <ion-thumbnail style="padding-top:2.2vh;padding-right:0" item-start >
                           <img style="height:50px; width:50px"  src="../../assets/icon/checklist.png"> 
                       </ion-thumbnail>
-                    <h2>{{summary.title}}</h2>
-                    <h3>{{summary.summary.substring(0,30)}}</h3>
+                    <h2 style="font-weight:500">{{summary.title}}</h2>
+                    <!-- <h3>{{summary.summarised_text}}</h3> -->
                   </ion-item>
                   <ion-item-options side="right">
                       
@@ -31,6 +31,21 @@
                 </ion-list>
         </ion-card>
     </div>
+    <!-- <ion-list>
+      <ion-item-group>
+        <ion-item-divider color="light">Extractive Summary</ion-item-divider>
+        <div *ngFor="let summary of summaryList">
+          <ion-item *ngIf="summary">{{summary.title}}</ion-item>
+        </div>
+      </ion-item-group>
+      <ion-item-group>
+        <ion-item-divider color="light">Abstractive Summary</ion-item-divider>
+        <ion-item>Angola</ion-item>
+        <ion-item>Argentina</ion-item>
+      </ion-item-group> -->
+      
+    <!-- </ion-list> -->
+    
 </ion-content>
 
 

@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>popover</ion-title>
+    <ion-title>Summary</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,9 +9,12 @@
 
 <ion-content padding>
     <ion-card style="padding:10px 10px 10px 10px;">
-        <!-- <h1>{{data.title}}</h1>
-        <h2> Reduced: {{data.reduced}}</h2>
-        <h3>{{data.summary.substring(14)}}</h3> -->
-        {{data}}
+        <h1>{{data.title}}</h1>
+        <h2> Summary:</h2><br>
+        <p>{{data.summarised_text}}</p><hr>
+        <!-- <h2>Original Text</h2><br>
+        <p>{{data.text}}</p> -->
+        <h2 (click)="showDetails()">Original Text<ion-icon style="margin-left: .5em;" item-right name="arrow-dropdown"></ion-icon></h2><br>
+        <p *ngIf="details">{{data.text}}</p>
       </ion-card>
 </ion-content>

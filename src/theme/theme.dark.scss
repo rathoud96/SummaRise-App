@@ -4,9 +4,9 @@
     background-color:#121212 ;
   }
    
-    .toolbar-title {
-      color: white;
-    }
+      .toolbar-title {
+        color: white;
+      }
 
     ion-card{
       h1,h2,h3{
@@ -38,7 +38,9 @@
     .ion-input{
       background:transparent;
     }
-    
+    ion-segment-button{
+      color:whitesmoke;
+    }
     .item-cover{
       background: transparent;
     }
@@ -53,7 +55,20 @@
     background: transparent;
     color:white
   }
-  
+  ion-list-header{
+    border: 1px solid whitesmoke;
+    background: transparent;
+  }
+  ion-label{
+    color: whitesmoke;
+  }
+  ion-icon{
+    color:whitesmoke;
+  }
+
+  .card-md p{
+    color: whitesmoke
+  }
   
   } 
   

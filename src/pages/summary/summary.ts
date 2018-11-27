@@ -23,8 +23,11 @@ export class SummaryPage {
   bck_color_e: any
   bck_color_a:any
   range_value:any
-  summary_size_type:any
+  summary_size_type:boolean
   ext_abst:any
+  saved:boolean
+  url_submit:any
+  checked:any
   constructor(public navCtrl: NavController,
      public navParams: NavParams,
      private loadingCtrl: LoadingController,
@@ -33,89 +36,117 @@ export class SummaryPage {
      private http:Http,
      private popoverCtrl:PopoverController) {
         this.type = "url";
-        this.range_value = 40
-        this.summary_size_type = "percentage"
-        this.ext_abst = "ext"
-        
+        this.range_value = 50
+        this.summary_size_type = true
+        this.ext_abst = "extractive"
+        this.bck_color_e = "#3498db"
+        this.saved = false;
+        this.checked = "ext";
+        this.summaryID = 0
   }
-
+  funct(ev){
+    this.checked = ev
+    if(this.checked == "ext"){
+      this.summary_size_type = true
+      this.ext_abst = "extractive"
+    }
+    
+    else{
+      this.summary_size_type = true
+      this.ext_abst = "abstractive" 
+    }
+    
+  }
   value_change(value){
-    console.log(value)
+    this.range_value = value
   }
-  change_color_e(){
-    this.bck_color_e = "#3498db"
-    this.bck_color_a = "transparent"
-  }
-  change_color_a(){
-    this.bck_color_a = "#3498db"
-    this.bck_color_e = "transparent"
+  // change_color_e(){
+  //   this.bck_color_e = "#3498db"
+  //   this.bck_color_a = "transparent"
+  //   this.summary_size_type = true
+  // }
+  // change_color_a(){
+  //   this.bck_color_a = "#3498db"
+  //   this.bck_color_e = "transparent"
+  //   this.summary_size_type = false
+  // }
+
+   dataChange(e:any){
+    console.log(e.checked);
+    this.saved = e.checked
   }
   onSubmit(form: NgForm) {
      const loading = this.loadingCtrl.create({
        content: 'Summarising data...'
      });
+     let text = form.value.summary_text
+     let title = form.value.summary_title
      loading.present();
-     console.log(form.value.summary);
-     console.log(this.userId);
-     firebase.auth().onAuthStateChanged(user=>{
-       this.userId = user.uid;
-      firebase.database().ref('users/'+this.userId+'/summaryId').once('value',data=>{
-        console.log(data.val());
-        this.summaryID = data.val();
-        firebase.database().ref('users/'+this.userId+'/summary/'+this.summaryID).set(form.value.summary);
-        this.summaryID+=1;
-        firebase.database().ref('users/'+this.userId+'/summaryId').set(this.summaryID);
-     });
-     });
-     //form.value.summary = "";
+    
+     this.http.post('https://summarise-api.herokuapp.com/apicall/text',{title,text,sentences_percentage:this.range_value},{}).map(res=>res.json()).subscribe(data=>{
+
+      let response = {
+        text:data.dataa.text,
+        title:form.value.summary_title,
+        summarised_text:data.dataa.sentences,
+        type:this.ext_abst,
+        id:this.summaryID    
+    }
+    loading.dismiss();
+    this.navCtrl.push(PopoverPage,{animation: true, direction: 'up', duration:500, data:response });
+    if(this.saved){
+        firebase.auth().onAuthStateChanged(user=>{
+          this.userId = user.uid;
+        firebase.database().ref('users/'+this.userId+'/summaryId').once('value',data=>{
+          console.log(data.val());
+          this.summaryID = data.val();
+          response.id = this.summaryID
+          firebase.database().ref('users/'+this.userId+'/summary/'+this.summaryID).set(response);
+          firebase.database().ref('users/'+this.userId+'/summaryId').set(this.summaryID+1);
+        });
+        });
+      }
+    });  
      loading.dismiss();
-    //  const popover = this.popoverCtrl.create(PopoverPage,{data:form.value.summary});
-    //   popover.present();
+     form.reset();
   }
 
   onSubmitUrl(form: NgForm){
+    
+    console.log(this.range_value);
+
     var url = form.value.http;
     console.log(url);
-    
-    this.http.post('http://localhost:3000/apicall/url',{url,sentences_number:7},{}).map(res=>res.json()).subscribe(data=>{
-      console.log(data.text);
+    const loading = this.loadingCtrl.create({
+      content: "Summarising data.."
     });
+    loading.present();
+    this.http.post('https://summarise-api.herokuapp.com/apicall/url',{url,sentences_percentage:this.range_value},{}).map(res=>res.json()).subscribe(data=>{
 
-
-    // this.http.get('https://api.aylien.com/api/v1/summarize',opt).map(res=>res.json()).subscribe(data=>{
-    //         console.log(data);
-
-    //         this.navCtrl.push(PopoverPage,{animation: true, direction: 'up', duration:500, data:data });
-    // });
-    
-     //this.http.get('http://api.smmry.com/&SM_API_KEY=D4448EBCCB&SM_LENGTH=40&SM_URL='+url).map(res => res.json()).subscribe(data => {
-       
-    //     var urlSummary = {
-    //         title: data.sm_api_title,
-    //         summary: data.sm_api_content,
-    //         reduced: data.sm_api_content_reduced
-    //     }
-    //     console.log(urlSummary);
-    //     const loading = this.loadingCtrl.create({
-    //       content: 'Summarising data...'
-    //     });
-    //     loading.present();
-    //     console.log(form.value.summary);
-    //     console.log(this.userId);
-    //     firebase.auth().onAuthStateChanged(user=>{
-    //       this.userId = user.uid;
-    //      firebase.database().ref('users/'+this.userId+'/summaryId').once('value',data=>{
-    //        console.log(data.val());
-    //        this.summaryID = data.val();
-    //        firebase.database().ref('users/'+this.userId+'/summary/'+this.summaryID).set(urlSummary);
-    //        this.summaryID+=1;
-    //        firebase.database().ref('users/'+this.userId+'/summaryId').set(this.summaryID);
-    //     });
-    //     });
-        //form.value.summary = "";
-        //loading.dismiss();
-        
-  // });
+      let response = {
+        text:data.dataa.text,
+        title:data.dataa.results[0].result.title,
+        summarised_text:data.dataa.results[1].result.sentences,
+        type:this.ext_abst,
+        id:this.summaryID    
+    }
+    loading.dismiss();
+    this.navCtrl.push(PopoverPage,{animation: true, direction: 'up', duration:500, data:response });
+    if(this.saved){
+      firebase.auth().onAuthStateChanged(user=>{
+        this.userId = user.uid;
+      firebase.database().ref('users/'+this.userId+'/summaryId').once('value',data=>{
+        console.log(data.val());
+        this.summaryID = data.val();
+        response.id = this.summaryID
+        firebase.database().ref('users/'+this.userId+'/summary/'+this.summaryID).set(response);
+        firebase.database().ref('users/'+this.userId+'/summaryId').set(this.summaryID+1);
+      });
+      });
+      }
+    });    
+     
+  form.reset();
   }
  
 }
